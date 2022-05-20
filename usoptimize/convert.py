@@ -1,16 +1,15 @@
-import argparse
 import codecs
 import errno
 import os
 import re
-import runpy
-import ffmpeg
-import sys
 from pathlib import Path
 from shutil import copyfile
-from qtfaststart2 import processor
+
+import ffmpeg
 from chardet import UniversalDetector
 from tqdm import tqdm
+
+from usoptimize.qtfaststart2 import processor
 
 detector = UniversalDetector()
 txt_pattern = re.compile(r'(#VIDEO.*)(\.avi|\.mp4|\.divx)', re.IGNORECASE)
@@ -90,24 +89,3 @@ def convert(in_path, out_path, replace):
             convert_to_mp4(in_file_path, out_file_path)
         else:
             copyfile(in_file_path, out_file_path)
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Convert UltraStar Songs to mp4.')
-    parser.add_argument('-i', '--input', metavar='<path of songs>', type=str, nargs=1, required=True,
-                        help='Filepath of songs that should be converted')
-    parser.add_argument('-o', '--output', metavar='<output path>', type=str, nargs=1, required=True,
-                        help='Destination directory of converted songs')
-    parser.add_argument('-r', '--replace', action="store_true",
-                        help='Whether or not to replace old existing files in output dir')
-
-    args = parser.parse_args()
-
-    input_path = args.input[0]
-    output_path = args.output[0]
-
-    if not os.path.isdir(input_path) or not os.path.isdir(output_path):
-        print('The path specified does not exist')
-        sys.exit()
-
-    convert(input_path, output_path, args.replace)

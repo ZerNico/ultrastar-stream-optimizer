@@ -8,7 +8,7 @@ import io
 
 # This exception isn't directly used, included it for backward compatability
 # in the event someone had used it from our namespace previously
-from qtfaststart2.exceptions import FastStartException, MalformedFileError, FastStartSetupError, UnsupportedFormatError
+from usoptimize.qtfaststart2.exceptions import MalformedFileError, FastStartSetupError, UnsupportedFormatError
 
 CHUNK_SIZE = 8192
 
